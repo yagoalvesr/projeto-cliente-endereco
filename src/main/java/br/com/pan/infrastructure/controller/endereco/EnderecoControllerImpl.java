@@ -3,6 +3,7 @@ package br.com.pan.infrastructure.controller.endereco;
 import br.com.pan.application.service.endereco.EnderecoServiceImpl;
 import br.com.pan.domain.model.response.endereco.EnderecoResponse;
 import br.com.pan.domain.model.response.endereco.EstadoResponse;
+import br.com.pan.domain.model.response.endereco.MunicipioResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -28,8 +29,14 @@ public class EnderecoControllerImpl implements EnderecoController{
     }
 
     @Operation(summary = "Listar estados")
-    @GetMapping
+    @GetMapping("/estados")
     public ResponseEntity<List<EstadoResponse>> buscarEstados() {
         return ResponseEntity.ok(service.buscarEstados());
+    }
+
+    @Operation(summary = "Listar municipios")
+    @GetMapping("/municipios")
+    public ResponseEntity<List<MunicipioResponse>> buscarMunicipiosPorEstadoId(@RequestParam Long estadoId) {
+        return ResponseEntity.ok(service.buscarMunicipiosPorEstadoId(estadoId));
     }
 }

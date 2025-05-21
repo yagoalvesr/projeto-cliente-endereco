@@ -16,9 +16,15 @@ public class Endereco {
     @Id
     @GeneratedValue
     private UUID id;
-    private Long codigoCidade;
+    private Long codigoIbgeCidade;
     private String nomeCidade;
-    private Long codigoEstado;
+    private Long codigoIbgeEstado;
     private String nomeEstado;
     private String cep;
+    private String logradouro;
+    private String bairro;
+    private String uf;
+    private String regiao;
+    private String complemento;
+    private String unidade;
 }

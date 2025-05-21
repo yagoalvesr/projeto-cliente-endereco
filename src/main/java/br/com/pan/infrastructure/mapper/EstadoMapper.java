@@ -4,7 +4,6 @@ import br.com.pan.domain.model.response.endereco.EstadoResponse;
 import br.com.pan.domain.model.response.endereco.ibge.IbgeEstado;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EstadoMapper {
 
@@ -25,7 +24,6 @@ public class EstadoMapper {
             return Collections.emptyList();
         }
         return estados.stream()
-                .map(EstadoMapper::toEstadoResponse)
-                .collect(Collectors.toList());
+                .map(EstadoMapper::toEstadoResponse).toList();
     }
 }
