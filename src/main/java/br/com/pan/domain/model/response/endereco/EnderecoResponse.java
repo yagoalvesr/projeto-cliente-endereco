@@ -1,9 +1,9 @@
-package br.com.pan.domain.model.response.endereco.viacep;
+package br.com.pan.domain.model.response.endereco;
 
 import lombok.Data;
 
 @Data
-public class ViaCepEnderecoResponse {
+public class EnderecoResponse {
     private String cep;
     private String logradouro;
     private String complemento;
@@ -13,8 +13,4 @@ public class ViaCepEnderecoResponse {
     private String uf;
     private String estado;
     private String regiao;
-    private String ibge;
-    private String gia;
-    private String ddd;
-    private String siafi;
 }
