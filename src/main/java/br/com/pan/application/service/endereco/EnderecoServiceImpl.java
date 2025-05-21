@@ -8,6 +8,7 @@ import br.com.pan.domain.repository.endereco.EnderecoRepository;
 import br.com.pan.infrastructure.integration.ibge.IbgeApiPort;
 import br.com.pan.infrastructure.integration.viacep.ViaCepApiPort;
 import br.com.pan.infrastructure.mapper.EnderecoMapper;
+import br.com.pan.infrastructure.mapper.EstadoMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,12 +23,12 @@ public class EnderecoServiceImpl implements EnderecoService {
 
 
     public EnderecoResponse buscarEnderecoPorCep(String cep) {
-        ViaCepEnderecoResponse viaCepResponse = viaCepApiPort.buscarEnderecoPorCep(cep);
-        return EnderecoMapper.fromViaCepEnderecoResponse(viaCepResponse);
+        ViaCepEnderecoResponse enderecoViaCepResponse = viaCepApiPort.buscarEnderecoPorCep(cep);
+        return EnderecoMapper.fromViaCepEnderecoResponse(enderecoViaCepResponse);
     }
 
     public List<EstadoResponse> buscarEstados() {
-        List<IbgeEstado> estados = ibgeApiPort.listarEstados();
-        return EnderecoMapper.fromViaCepEnderecoResponse(viaCepResponse);
+        List<IbgeEstado> estadosIbgeResponse = ibgeApiPort.listarEstados();
+        return EstadoMapper.toEstadoResponseList(estadosIbgeResponse);
     }
 }

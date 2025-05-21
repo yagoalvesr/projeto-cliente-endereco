@@ -2,8 +2,10 @@ package br.com.pan.infrastructure.controller.endereco;
 
 import br.com.pan.application.service.endereco.EnderecoServiceImpl;
 import br.com.pan.domain.model.response.endereco.EnderecoResponse;
+import br.com.pan.domain.model.response.endereco.EstadoResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,7 @@ public class EnderecoControllerImpl implements EnderecoController{
 
     @Operation(summary = "Listar estados")
     @GetMapping
-    public ResponseEntity<EnderecoResponse> buscarEstados() {
+    public ResponseEntity<List<EstadoResponse>> buscarEstados() {
         return ResponseEntity.ok(service.buscarEstados());
     }
 }
