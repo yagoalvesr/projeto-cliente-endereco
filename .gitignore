@@ -35,3 +35,5 @@ replay_pid*
 /data/**
 /src/main/resources/*.properties
 /gradle.properties
+.gradle/
+build/
