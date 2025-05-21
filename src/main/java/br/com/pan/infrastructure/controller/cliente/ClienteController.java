@@ -1,4 +1,4 @@
-package br.com.pan.infrastructure.controller;
+package br.com.pan.infrastructure.controller.cliente;
 
 import br.com.pan.application.service.cliente.ClienteService;
 import br.com.pan.domain.model.entity.cliente.Cliente;
