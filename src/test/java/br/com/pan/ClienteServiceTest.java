@@ -3,14 +3,14 @@ package br.com.pan;
 import br.com.pan.application.service.cliente.ClienteService;
 import br.com.pan.domain.model.entity.cliente.Cliente;
 import br.com.pan.domain.repository.cliente.ClienteRepository;
+import java.util.List;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;

@@ -3,7 +3,6 @@ package br.com.pan.infrastructure.integration.ibge;
 import br.com.pan.domain.exception.IbgeApiException;
 import br.com.pan.domain.model.response.endereco.ibge.IbgeEstado;
 import br.com.pan.domain.model.response.endereco.ibge.IbgeMunicipio;
-import br.com.pan.domain.model.response.endereco.viacep.ViaCepEnderecoResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,11 +1,10 @@
 package br.com.pan.application.service.cliente;
 
-import br.com.pan.domain.repository.cliente.ClienteRepository;
 import br.com.pan.domain.model.entity.cliente.Cliente;
+import br.com.pan.domain.repository.cliente.ClienteRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
