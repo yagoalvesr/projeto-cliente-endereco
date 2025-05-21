@@ -10,8 +10,10 @@ import br.com.pan.infrastructure.mapper.cliente.ClienteMapper;
 import br.com.pan.infrastructure.mapper.endereco.EnderecoMapper;
 import br.com.pan.infrastructure.util.Util;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ClienteServiceImpl implements ClienteService {
@@ -21,14 +23,32 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public ClienteResponse buscarClientePorCpf(String cpf) {
-        Cliente cliente = clienteRepository.findByCpf(Util.apenasNumeros(cpf)).orElseThrow(() -> new ClienteNaoEncontradoException("Não foi possível encontrar um cliente para esse CPF"));
+        String cpfNumerico = Util.apenasNumeros(cpf);
+        log.info("Iniciando busca de cliente por CPF: {}", cpfNumerico);
+
+        Cliente cliente = clienteRepository.findByCpf(cpfNumerico)
+                .orElseThrow(() -> {
+                    log.warn("Cliente não encontrado para CPF: {}", cpfNumerico);
+                    return new ClienteNaoEncontradoException("Não foi possível encontrar um cliente para esse CPF");
+                });
+
+        log.info("Cliente encontrado com id: {}", cliente.getId());
         return ClienteMapper.clienteEntitytoClienteResponse(cliente);
     }
 
     @Override
     public void alterarEnderecoCliente(ClienteEnderecoRequest clienteEnderecoRequest) {
-        Cliente cliente = clienteRepository.findById(clienteEnderecoRequest.getClienteId()).orElseThrow(() -> new ClienteNaoEncontradoException("Não foi possível encontrar um cliente para esse id"));
+        log.info("Iniciando atualização de endereço para clienteId: {}", clienteEnderecoRequest.getClienteId());
+
+        Cliente cliente = clienteRepository.findById(clienteEnderecoRequest.getClienteId())
+                .orElseThrow(() -> {
+                    log.warn("Cliente não encontrado para ID: {}", clienteEnderecoRequest.getClienteId());
+                    return new ClienteNaoEncontradoException("Não foi possível encontrar um cliente para esse id");
+                });
+
         EnderecoMapper.enderecoRequestToEnderecoEntity(cliente.getEndereco(), clienteEnderecoRequest);
         clienteRepository.save(cliente);
+
+        log.info("Endereço atualizado com sucesso para clienteId: {}", cliente.getId());
     }
 }

@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EnderecoServiceImpl implements EnderecoService {
@@ -26,18 +28,24 @@ public class EnderecoServiceImpl implements EnderecoService {
     private static final Long ID_ESTADO_SP = 35L;
     private static final Long ID_ESTADO_RJ = 33L;
 
-    private final EnderecoRepository enderecoRepository;
     private final ViaCepApiPort viaCepApiPort;
     private final IbgeApiPort ibgeApiPort;
 
     public EnderecoResponse buscarEnderecoPorCep(String cep) {
+        log.info("Buscando endereço para o CEP: {}", cep);
         ViaCepEnderecoResponse enderecoViaCepResponse = viaCepApiPort.buscarEnderecoPorCep(cep);
+        log.info("Endereço encontrado: cep={}, logradouro={}, localidade={}",
+                enderecoViaCepResponse.getCep(), enderecoViaCepResponse.getLogradouro(), enderecoViaCepResponse.getLocalidade());
         return EnderecoMapper.enderecoViaCepToEnderecoResponse(enderecoViaCepResponse);
     }
 
     public List<EstadoResponse> buscarEstados() {
+        log.info("Buscando lista de estados via IBGE");
         List<IbgeEstado> estadosIbgeResponse = ibgeApiPort.listarEstados();
-        return ordenarListaEstados(estadosIbgeResponse);
+        log.info("Total de estados retornados: {}", estadosIbgeResponse.size());
+        List<EstadoResponse> estadosOrdenados = ordenarListaEstados(estadosIbgeResponse);
+        log.info("Lista de estados ordenada com SP e RJ no topo");
+        return estadosOrdenados;
     }
 
     private static List<EstadoResponse> ordenarListaEstados(List<IbgeEstado> estadosIbgeResponse) {
@@ -49,14 +57,17 @@ public class EnderecoServiceImpl implements EnderecoService {
             Long id = estado.getId();
             if (Objects.equals(id, ID_ESTADO_SP)) {
                 sp = estado;
+                log.debug("Identificado estado SP: {}", estado.getNome());
             } else if (Objects.equals(id, ID_ESTADO_RJ)) {
                 rj = estado;
+                log.debug("Identificado estado RJ: {}", estado.getNome());
             } else {
                 outros.add(estado);
             }
         }
 
         Util.ordenarPor(outros, EstadoResponse::getNome);
+        log.debug("Estados restantes ordenados alfabeticamente");
 
         List<EstadoResponse> resultado = new ArrayList<>();
         if (sp != null) resultado.add(sp);
@@ -67,7 +78,9 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     @Override
     public List<MunicipioResponse> buscarMunicipiosPorEstadoId(Long estadoId) {
+        log.info("Buscando municípios para estadoId={}", estadoId);
         List<IbgeMunicipio> municipiosIbgeResponse = ibgeApiPort.listarMunicipiosPorEstado(estadoId);
+        log.info("Total de municípios retornados: {}", municipiosIbgeResponse.size());
         return MunicipioMapper.toMunicipioResponseList(municipiosIbgeResponse);
     }
 
