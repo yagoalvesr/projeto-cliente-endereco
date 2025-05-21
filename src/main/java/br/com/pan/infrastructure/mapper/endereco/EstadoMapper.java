@@ -1,4 +1,4 @@
-package br.com.pan.infrastructure.mapper;
+package br.com.pan.infrastructure.mapper.endereco;
 
 import br.com.pan.domain.model.response.endereco.EstadoResponse;
 import br.com.pan.domain.model.response.endereco.ibge.IbgeEstado;

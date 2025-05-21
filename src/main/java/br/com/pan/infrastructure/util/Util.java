@@ -15,4 +15,17 @@ public class Util {
         lista.sort(Comparator.comparing(extratorChave));
     }
 
+    /**
+     * Remove todos os caracteres que não são dígitos de uma string.
+     *
+     * @param input string original
+     * @return string contendo apenas números
+     */
+    public static String apenasNumeros(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.replaceAll("[^\\d]", "");
+    }
+
 }

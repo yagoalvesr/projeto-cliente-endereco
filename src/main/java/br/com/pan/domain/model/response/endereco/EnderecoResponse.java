@@ -13,4 +13,5 @@ public class EnderecoResponse {
     private String uf;
     private String estado;
     private String regiao;
+    private String cidade;
 }

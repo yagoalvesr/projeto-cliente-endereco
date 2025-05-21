@@ -17,9 +17,9 @@ public class Endereco {
     @GeneratedValue
     private UUID id;
     private Long codigoIbgeCidade;
-    private String nomeCidade;
+    private String cidade;
     private Long codigoIbgeEstado;
-    private String nomeEstado;
+    private String estado;
     private String cep;
     private String logradouro;
     private String bairro;

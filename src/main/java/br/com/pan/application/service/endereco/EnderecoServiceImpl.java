@@ -9,9 +9,9 @@ import br.com.pan.domain.model.response.endereco.viacep.ViaCepEnderecoResponse;
 import br.com.pan.domain.repository.endereco.EnderecoRepository;
 import br.com.pan.infrastructure.integration.ibge.IbgeApiPort;
 import br.com.pan.infrastructure.integration.viacep.ViaCepApiPort;
-import br.com.pan.infrastructure.mapper.EnderecoMapper;
-import br.com.pan.infrastructure.mapper.EstadoMapper;
-import br.com.pan.infrastructure.mapper.MunicipioMapper;
+import br.com.pan.infrastructure.mapper.endereco.EnderecoMapper;
+import br.com.pan.infrastructure.mapper.endereco.EstadoMapper;
+import br.com.pan.infrastructure.mapper.endereco.MunicipioMapper;
 import br.com.pan.infrastructure.util.Util;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     public EnderecoResponse buscarEnderecoPorCep(String cep) {
         ViaCepEnderecoResponse enderecoViaCepResponse = viaCepApiPort.buscarEnderecoPorCep(cep);
-        return EnderecoMapper.fromViaCepEnderecoResponse(enderecoViaCepResponse);
+        return EnderecoMapper.enderecoViaCepToEnderecoResponse(enderecoViaCepResponse);
     }
 
     public List<EstadoResponse> buscarEstados() {
